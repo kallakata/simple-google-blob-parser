@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/Users/pvarenka/Ops/GWI/pytest/env"
+VIRTUAL_ENV="/Users/pvarenka/Ops/GWI/simple-google-blob-parser/env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

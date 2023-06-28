@@ -1,0 +1,3 @@
+boto
+setuptools
+distro
