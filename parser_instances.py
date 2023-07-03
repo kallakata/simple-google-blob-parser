@@ -54,7 +54,8 @@ class Instances:
             "--requests",
             help='Number of requests and results',
             dest="requests",
-            type = int
+            type = int,
+            nargs='+'
         )
 
         arguments = parser.parse_args()
