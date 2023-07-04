@@ -11,9 +11,7 @@ def list_pods(context, namespace, timeout_seconds, watch, limit):
     pod_list = kube_client.list_namespaced_pod(namespace, pretty=True, timeout_seconds=timeout_seconds, watch=watch, limit=limit)
 
     if len(pod_list.items) > 0:
-        print("Listing pods with their IPs:")
         time.sleep(2)
-        print("\t\tPOD\t\t\tSTATUS\t\t\tIP\t\t\tREASON")
         for pod in pod_list.items:
             # pod_name = pod.metadata.name
             # condition = pod.status.phase
@@ -22,12 +20,15 @@ def list_pods(context, namespace, timeout_seconds, watch, limit):
             # else:
             response = kube_client.read_namespaced_pod(name=pod.metadata.name, namespace=namespace, pretty=True)
             reason = response.status.reason
-            if reason == "Terminated":
+            phase = response.status.phase
+            if reason == "Terminated" or phase == "Failed":
                 print("Listing defunct pods...")
+                # print("\t\tPOD\t\t\tSTATUS\t\t\tIP\t\t\tREASON")
                 time.sleep(2)
                 print(f"The {pod.metadata.name} status is non-running because of: {reason}")
             else:
                 print("Listing running pods...")
+                print("\t\tPOD\t\t\tSTATUS\t\t\tIP\t\t\tREASON")
                 print("%s\t\t%s\t\t\t%s" % (pod.metadata.name,
                                     pod.status.phase,
                                     pod.status.pod_ip))
